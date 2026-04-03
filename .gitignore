@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# User requested (leftovers from C++ or VSCode configs)
+*.json
+.vscode/
+
+# Old C++ build directory (just in case it's still there)
+build/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Distribution / Packaging
+dist/
+*.egg-info/
