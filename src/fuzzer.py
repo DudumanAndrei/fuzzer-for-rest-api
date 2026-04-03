@@ -1,5 +1,9 @@
+from src.http_client import HttpClient
+from src.request_generator import RequestGenerator
+from src.response_analyzer import ResponseAnalyzer
+
 class Fuzzer:
-    def __init__(self, http_client, request_generator, response_analyzer):
+    def __init__(self, http_client: HttpClient, request_generator: RequestGenerator, response_analyzer: ResponseAnalyzer):
         self.http_client = http_client
         self.request_generator = request_generator
         self.response_analyzer = response_analyzer

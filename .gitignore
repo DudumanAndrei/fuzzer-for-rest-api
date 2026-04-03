@@ -21,3 +21,7 @@ env/
 # Distribution / Packaging
 dist/
 *.egg-info/
+
+# Doxygen generated documentation
+html/
+latex/
