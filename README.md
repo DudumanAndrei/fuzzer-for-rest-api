@@ -10,7 +10,7 @@ We scanned the target using Nmap. The scan found a Python 3.11 environment. The 
 ## Project Status
 We have successfully transitioned to an Object-Oriented Python architecture. The fuzzer is currently composed of modular classes for:
 - Generating malformed requests (`RequestGenerator`)
-- Handling HTTP traffic (`HttpClient`)
+- Handling HTTP traffic (`HttpClient` with support for GET, POST, PUT, DELETE)
 - Analyzing the target's responses for vulnerabilities (`ResponseAnalyzer`)
 
 ## Technologies Used

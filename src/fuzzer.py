@@ -3,7 +3,16 @@ from src.request_generator import RequestGenerator
 from src.response_analyzer import ResponseAnalyzer
 
 class Fuzzer:
+    """!
+    @brief Main fuzzer class orchestrating the fuzzing process.
+    """
     def __init__(self, http_client: HttpClient, request_generator: RequestGenerator, response_analyzer: ResponseAnalyzer):
+        """!
+        @brief Initializes the Fuzzer with required components.
+        @param http_client The HTTP client to send requests.
+        @param request_generator The generator for fuzzing requests.
+        @param response_analyzer The analyzer for HTTP responses.
+        """
         self.http_client = http_client
         self.request_generator = request_generator
         self.response_analyzer = response_analyzer
@@ -15,6 +24,9 @@ class Fuzzer:
         print(f"Fuzzer initialized for target {self.target_host}:{self.target_port}")
 
     def run(self):
+        """!
+        @brief Starts the fuzzing loop, iterating through all generated requests.
+        """
         print("Starting fuzzing loop...")
         
         while True:
@@ -29,6 +41,10 @@ class Fuzzer:
                 response = self.http_client.get(url, headers=fuzz_request.headers)
             elif fuzz_request.method == "POST":
                 response = self.http_client.post(url, body=fuzz_request.body, headers=fuzz_request.headers)
+            elif fuzz_request.method == "PUT":
+                response = self.http_client.put(url, body=fuzz_request.body, headers=fuzz_request.headers)
+            elif fuzz_request.method == "DELETE":
+                response = self.http_client.delete(url, headers=fuzz_request.headers)
             else:
                 print("Unsupported HTTP method.")
                 continue
@@ -50,6 +66,9 @@ class Fuzzer:
         print("Fuzzing loop finished.")
 
     def generate_report(self):
+        """!
+        @brief Generates a markdown vulnerability report based on findings.
+        """
         print("\n--- Generating Vulnerability Report ---")
         report_path = "vulnerability_report.md"
         with open(report_path, "w") as f:
