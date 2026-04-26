@@ -5,7 +5,7 @@ A Python Object-Oriented Fuzzer for a RESTful API
 This project builds a modular Python fuzzer. The main target is VAmPI, a vulnerable API containing intentional security flaws. We run this API locally using Docker on port 5001. This setup prevents network blocks during testing.
 
 ## Target Analysis
-We scanned the target using Nmap. The scan found a Python 3.11 environment. The server uses Werkzeug 2.2.3. The API returns data in JSON format. We mapped the endpoints using ffuf. The active routes include /users/v1 and /books/v1. The system also exposes the /createdb route.
+We scanned the target using Nmap. The scan found a Python 3.11 environment. The server uses Werkzeug 2.2.3. The API returns data in JSON format. We mapped the endpoints using ffuf. The active routes include `/`, `/me`, `/users/v1`, `/users/v1/_debug`, `/users/v1/register`, `/users/v1/login`, `/users/v1/{username}`, `/books/v1`, and `/books/v1/{book}`. The system also exposes the `/createdb` database management route.
 
 ## Project Status
 We have successfully transitioned to an Object-Oriented Python architecture. The fuzzer is currently composed of modular classes for:

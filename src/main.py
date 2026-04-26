@@ -6,16 +6,15 @@ from src.fuzzer import Fuzzer
 def main():
     print("Starting REST API Fuzzer...")
     
-    # 1. Create instances of the components
     http_client = RequestsHttpClient()
     request_generator = RequestGenerator()
     response_analyzer = ResponseAnalyzer()
     
-    # 2. Inject them into the Fuzzer
     fuzzer = Fuzzer(http_client, request_generator, response_analyzer)
     
-    # 3. Run the fuzzer
     fuzzer.run()
+    
+    fuzzer.generate_report()
     print("Fuzzing finished.")
 
 if __name__ == "__main__":

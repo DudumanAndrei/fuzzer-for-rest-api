@@ -11,6 +11,7 @@ class Fuzzer:
         # Target configuration
         self.target_host = "http://localhost"
         self.target_port = 5001
+        self.findings = []
         print(f"Fuzzer initialized for target {self.target_host}:{self.target_port}")
 
     def run(self):
@@ -34,10 +35,31 @@ class Fuzzer:
             
             print(f"  -> Received HTTP Status: {response.status_code}")
             
-            result = self.response_analyzer.analyze(response)
+            result = self.response_analyzer.analyze(response, fuzz_request)
             if result.is_vulnerable:
                 print("!!! VULNERABILITY FOUND !!!")
                 print(f"Type: {result.vulnerability_type}\nDetails: {result.details}")
                 print(f"Request URL: {url}\nRequest Body: {fuzz_request.body}\n")
+                self.findings.append({
+                    "url": url,
+                    "method": fuzz_request.method,
+                    "type": result.vulnerability_type,
+                    "details": result.details
+                })
 
         print("Fuzzing loop finished.")
+
+    def generate_report(self):
+        print("\n--- Generating Vulnerability Report ---")
+        report_path = "vulnerability_report.md"
+        with open(report_path, "w") as f:
+            f.write("# REST API Fuzzer Vulnerability Report\n\n")
+            if not self.findings:
+                f.write("No vulnerabilities were found during this fuzzing session.\n")
+            else:
+                f.write(f"**Total Vulnerabilities Found:** {len(self.findings)}\n\n")
+                for idx, finding in enumerate(self.findings, 1):
+                    f.write(f"## {idx}. {finding['type']}\n")
+                    f.write(f"- **Endpoint**: `{finding['method']} {finding['url']}`\n")
+                    f.write(f"- **Details**: {finding['details']}\n\n")
+        print(f"Report saved to `{report_path}`\n")

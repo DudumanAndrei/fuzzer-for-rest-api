@@ -3,7 +3,20 @@ from src.fuzz_request import FuzzRequest
 
 class RequestGenerator:
     def __init__(self):
-        self.endpoints = ["/users/v1", "/books/v1", "/createdb"]
+        self.endpoints = [
+            "/",
+            "/createdb",
+            "/me",
+            "/users/v1",
+            "/users/v1/_debug",
+            "/users/v1/register",
+            "/users/v1/login",
+            "/users/v1/admin",          # Fuzzing target replacing {username}
+            "/users/v1/admin/email",    # Fuzzing target replacing {username}
+            "/users/v1/admin/password", # Fuzzing target replacing {username}
+            "/books/v1",
+            "/books/v1/book1"           # Fuzzing target replacing {book}
+        ]
         self.current_endpoint_index = 0
         self.fuzzing_case = 0
         print(f"RequestGenerator initialized with {len(self.endpoints)} endpoints.")
